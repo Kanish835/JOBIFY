@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════
+   JOBIFY — Premium Dark Theme with Glassmorphism
+   ═══════════════════════════════════════════════════════════ */
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(92,124,250,0.3) transparent;
+  }
+  *::-webkit-scrollbar { width: 6px; height: 6px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: rgba(92,124,250,0.3); border-radius: 3px; }
+  *::-webkit-scrollbar-thumb:hover { background: rgba(92,124,250,0.5); }
+  
+  body {
+    @apply bg-dark-900 font-sans;
+    background: 
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(92,124,250,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(230,73,128,0.06) 0%, transparent 60%),
+      #0a0a0f;
+  }
+
+  ::selection {
+    background: rgba(92,124,250,0.3);
+    color: white;
+  }
+}
+
+@layer components {
+  /* ── Glassmorphism Cards ────────────────────────────────── */
+  .glass-card {
+    @apply relative overflow-hidden rounded-2xl border border-white/[0.06];
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 8px 32px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-500 cursor-pointer;
+  }
+  .glass-card-hover:hover {
+    @apply border-white/[0.12];
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    box-shadow: 
+      0 16px 48px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.08),
+      0 0 30px rgba(92,124,250,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* ── Neon Gradient Borders ─────────────────────────────── */
+  .neon-border {
+    @apply relative;
+  }
+  .neon-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl;
+    padding: 1px;
+    background: linear-gradient(135deg, #5c7cfa, #e64980, #5c7cfa);
+    background-size: 200% 200%;
+    animation: gradient-x 5s ease infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  .neon-border:hover::before { opacity: 0.8; }
+
+  /* ── Gradient Text ─────────────────────────────────────── */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #5c7cfa 0%, #e64980 50%, #ff9f0a 100%);
+  }
+
+  .gradient-text-blue {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #5c7cfa, #00f5ff);
+  }
+
+  /* ── Buttons ───────────────────────────────────────────── */
+  .btn-primary {
+    @apply relative px-6 py-2.5 rounded-xl font-semibold text-sm text-white overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, #4c6ef5 0%, #5c7cfa 100%);
+    box-shadow: 0 4px 15px rgba(76,110,245,0.3);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 25px rgba(76,110,245,0.5);
+    transform: translateY(-1px);
+  }
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+  }
+
+  .btn-danger {
+    @apply relative px-6 py-2.5 rounded-xl font-semibold text-sm text-white overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, #e64980 0%, #c2255c 100%);
+    box-shadow: 0 4px 15px rgba(230,73,128,0.3);
+  }
+
+  .btn-success {
+    @apply relative px-6 py-2.5 rounded-xl font-semibold text-sm text-white overflow-hidden transition-all duration-300;
+    background: linear-gradient(135deg, #30d158 0%, #28a745 100%);
+    box-shadow: 0 4px 15px rgba(48,209,88,0.3);
+  }
+
+  .btn-ghost {
+    @apply px-6 py-2.5 rounded-xl font-semibold text-sm text-white/70 border border-white/10 transition-all duration-300 hover:bg-white/[0.05] hover:text-white hover:border-white/20;
+  }
+
+  /* ── Input Fields ──────────────────────────────────────── */
+  .input-glass {
+    @apply w-full px-4 py-3 rounded-xl text-sm text-white bg-white/[0.04] border border-white/[0.08] outline-none transition-all duration-300 placeholder:text-white/30;
+  }
+  .input-glass:focus {
+    @apply bg-white/[0.06] border-primary-500/50;
+    box-shadow: 0 0 20px rgba(92,124,250,0.15);
+  }
+
+  /* ── Status Badges ─────────────────────────────────────── */
+  .badge { @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold; }
+  .badge-new { @apply badge bg-neon-blue/10 text-neon-blue border border-neon-blue/20; }
+  .badge-pending { @apply badge bg-neon-orange/10 text-neon-orange border border-neon-orange/20; }
+  .badge-approved { @apply badge bg-neon-green/10 text-neon-green border border-neon-green/20; }
+  .badge-applied { @apply badge bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/20; }
+  .badge-rejected { @apply badge bg-neon-pink/10 text-neon-pink border border-neon-pink/20; }
+  .badge-bookmarked { @apply badge bg-neon-purple/10 text-neon-purple border border-neon-purple/20; }
+
+  /* ── Animated Background Blobs ─────────────────────────── */
+  .blob {
+    @apply absolute rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob;
+  }
+
+  /* ── Score Ring ─────────────────────────────────────────── */
+  .score-ring {
+    @apply relative inline-flex items-center justify-center;
+  }
+  .score-ring svg circle {
+    transition: stroke-dashoffset 1s ease-in-out;
+  }
+
+  /* ── Shimmer Loading ───────────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+@layer utilities {
+  .text-glow-blue { text-shadow: 0 0 20px rgba(92,124,250,0.5); }
+  .text-glow-pink { text-shadow: 0 0 20px rgba(230,73,128,0.5); }
+  .text-glow-green { text-shadow: 0 0 20px rgba(48,209,88,0.5); }
+}
